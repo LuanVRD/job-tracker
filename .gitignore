@@ -1,0 +1,21 @@
+## Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+## Compilação e Binários (.NET)
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+## Frontend (caso utilize futuramente)
+node_modules/
+.env
+.env.local
+## Arquivos de Sistema
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
