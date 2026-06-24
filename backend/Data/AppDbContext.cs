@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using backend.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Data
 {
@@ -8,6 +9,12 @@ namespace backend.Data
         {
         }
 
-        //public DbSet<Model> Model { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        }
     }
 }
