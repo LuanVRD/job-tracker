@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
@@ -7,6 +8,7 @@ namespace backend.Controllers
     public class ApiController : ControllerBase
     {
         [HttpGet("health")]
+        [Authorize]
         public IActionResult GetHealth()
         {
             return Ok(new
