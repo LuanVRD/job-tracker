@@ -18,7 +18,30 @@ namespace backend.Controllers
         [HttpPost("register")]
         public ActionResult<AuthResponse> PostRegister([FromBody] RegisterRequest register)
         {
-            return _service.Register(register);
+            try
+            {
+                var result = _service.Register(register);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        [HttpPost("login")]
+        public ActionResult<AuthResponse> PostLogin([FromBody] LoginRequest login)
+        {
+
+            try
+            {
+                var result = _service.Login(login);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(new { ex.Message });
+            }
         }
     }
 }

@@ -7,11 +7,13 @@ namespace backend.Services
 {
     public class AuthService
     {
-        private AppDbContext _db;
+        private readonly AppDbContext _db;
+        private readonly TokenService _tokenService;
 
-        public AuthService(AppDbContext db)
+        public AuthService(AppDbContext db, TokenService tokenService)
         {
             _db = db;
+            _tokenService = tokenService;
         }
 
         public AuthResponse Register(RegisterRequest registerRequest)
@@ -38,8 +40,37 @@ namespace backend.Services
             _db.Users.Add(user);
             _db.SaveChanges();
 
+            var token = _tokenService.GenerateToken(user);
+
             return new AuthResponse { 
-                Token = "",
+                Token = token,
+                UserEmail = user.Email,
+                UserName = user.Name,
+            };
+        }
+
+        public AuthResponse Login(LoginRequest loginRequest)
+        {
+            var user = _db.Users.FirstOrDefault(x => x.Email.Equals(loginRequest.Email));
+
+            if (user == null)
+            {
+                throw new Exception("Email ou senha estão incorretos");
+            }
+
+            var isValidPassword = BC.Verify(loginRequest.Password, user.PasswordHash);
+
+            if (!isValidPassword)
+            {
+                throw new Exception("Email ou senha estão incorretos");
+            }
+
+
+            var token = _tokenService.GenerateToken(user);
+
+            return new AuthResponse
+            {
+                Token = token,
                 UserEmail = user.Email,
                 UserName = user.Name,
             };
