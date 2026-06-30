@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthLayoutComponent } from '../../components/auth-layout/auth-layout';
 import { ErrorBoxComponent } from '@app/shared/componentes/error-box/error-box';
+import { PasswordInputComponent } from '@app/shared/componentes/password-input/password-input';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,8 @@ import { ErrorBoxComponent } from '@app/shared/componentes/error-box/error-box';
     MatInputModule,
     MatButtonModule,
     AuthLayoutComponent,
-    ErrorBoxComponent
+    ErrorBoxComponent,
+    PasswordInputComponent
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',

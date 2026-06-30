@@ -5,14 +5,7 @@
             <mat-label>Email</mat-label>
             <input matInput placeholder="email@email.com" formControlName="email" required>
         </mat-form-field>
-        <mat-form-field>
-            <mat-label>Senha</mat-label>
-            <input matInput [type]="viewPassword ? 'text' : 'password'" formControlName="password" required>
-            <button matIconButton matSuffix type="button" aria-label="View password"
-                (click)="viewPassword = !viewPassword">
-                <mat-icon>{{viewPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-        </mat-form-field>
+        <app-password-input formControlName="password" label="Senha"></app-password-input>
         <div class="d-flex justify-center">
             <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid" class="btn-submit">
                 Entrar

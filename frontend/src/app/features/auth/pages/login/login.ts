@@ -2,25 +2,23 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth';
 import { Router } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { AuthLayoutComponent } from "../../components/auth-layout/auth-layout";
 import { ErrorBoxComponent } from "@app/shared/componentes/error-box/error-box";
+import { PasswordInputComponent } from '@app/shared/componentes/password-input/password-input';
 
 @Component({
   selector: 'app-login',
   imports: [
     ReactiveFormsModule,
-    MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule,
     AuthLayoutComponent,
-    ErrorBoxComponent
+    ErrorBoxComponent,
+    PasswordInputComponent
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
@@ -46,8 +44,6 @@ export class LoginComponent {
 
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
-        console.log('Login efetuado com sucesso!');
-
         localStorage.setItem('token', response.token);
         this.router.navigate(['/']);
       },
