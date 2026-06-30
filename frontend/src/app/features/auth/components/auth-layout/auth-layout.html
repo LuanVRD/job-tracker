@@ -1,0 +1,13 @@
+<div class="d-flex align-center justify-center h-full">
+    <mat-card class="d-flex gap-3">
+        <mat-card-header class="d-flex justify-center">
+            <mat-card-title>{{title()}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <ng-content></ng-content>
+        </mat-card-content>
+        <mat-card-actions class="d-flex justify-center">
+            <a [routerLink]="footerLink()">{{footerText()}}</a>
+        </mat-card-actions>
+    </mat-card>
+</div>

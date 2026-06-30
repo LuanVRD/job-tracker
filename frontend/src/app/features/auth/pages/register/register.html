@@ -1,1 +1,26 @@
-<p>register works!</p>
+<app-auth-layout title="Faça seu cadastro" footerText="Já possui uma conta? Entre agora!" footerLink="/login">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-1">
+        <app-error-box [errorMessage]="errorMessage()"></app-error-box>
+        <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="name" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="email@email.com" formControlName="email" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Senha</mat-label>
+            <input matInput type="password" formControlName="password" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Confirmar senha</mat-label>
+            <input matInput type="password" formControlName="passwordConfirm" required>
+        </mat-form-field>
+        <div class="d-flex justify-center">
+            <button mat-flat-button color="primary" type="submit" [disabled]="registerForm.invalid" class="btn-submit">
+                Cadastrar
+            </button>
+        </div>
+    </form>
+</app-auth-layout>

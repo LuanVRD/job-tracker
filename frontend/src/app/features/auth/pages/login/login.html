@@ -1,35 +1,22 @@
-<div class="d-flex align-center justify-center h-full">
-    <mat-card class="d-flex gap-3">
-        <mat-card-header class="d-flex justify-center">
-            <mat-card-title>Faça login para entrar</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-1">
-                @if (errorMessage()) {
-                <div class="error-box d-flex justify-center">{{errorMessage()}}</div>
-                }
-                <mat-form-field>
-                    <mat-label>Email</mat-label>
-                    <input matInput placeholder="email@email.com" formControlName="email" required>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Senha</mat-label>
-                    <input matInput [type]="viewPassword ? 'text' : 'password'" formControlName="password" required>
-                    <button matIconButton matSuffix type="button" aria-label="View password"
-                        (click)="viewPassword = !viewPassword">
-                        <mat-icon>{{viewPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
-                </mat-form-field>
-                <div class="d-flex justify-center">
-                    <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid"
-                        class="btn-submit">
-                        Entrar
-                    </button>
-                </div>
-            </form>
-        </mat-card-content>
-        <mat-card-actions class="d-flex justify-center">
-            <a routerLink="/register">Não possúi conta? Crie uma agora!</a>
-        </mat-card-actions>
-    </mat-card>
-</div>
+<app-auth-layout title="Faça login para entrar" footerText="Não possui conta? Crie uma agora!" footerLink="/register">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-1">
+        <app-error-box [errorMessage]="errorMessage()"></app-error-box>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="email@email.com" formControlName="email" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Senha</mat-label>
+            <input matInput [type]="viewPassword ? 'text' : 'password'" formControlName="password" required>
+            <button matIconButton matSuffix type="button" aria-label="View password"
+                (click)="viewPassword = !viewPassword">
+                <mat-icon>{{viewPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <div class="d-flex justify-center">
+            <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid" class="btn-submit">
+                Entrar
+            </button>
+        </div>
+    </form>
+</app-auth-layout>

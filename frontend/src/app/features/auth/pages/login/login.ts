@@ -1,23 +1,26 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthLayoutComponent } from "../../components/auth-layout/auth-layout";
+import { ErrorBoxComponent } from "@app/shared/componentes/error-box/error-box";
 
 @Component({
   selector: 'app-login',
   imports: [
     ReactiveFormsModule,
-    RouterLink,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    AuthLayoutComponent,
+    ErrorBoxComponent
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
