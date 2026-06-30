@@ -1,0 +1,11 @@
+mat-card {
+    width: 450px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+    .error-box {
+        padding: 10px;
+        background-color: rgba($color: #ff0000, $alpha: 0.2);
+        border-radius: 10px;
+    }
+}

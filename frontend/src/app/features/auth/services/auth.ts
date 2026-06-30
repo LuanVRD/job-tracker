@@ -8,10 +8,10 @@ export class AuthService {
   private http = inject(HttpClient);
 
   login(credentials: any) {
-    return this.http.post('/auth/login', credentials);
+    return this.http.post<any>('/auth/login', credentials);
   }
 
   register(credentials: any) {
-    return this.http.post('/auth/register', credentials);
+    return this.http.post<any>('/auth/register', credentials);
   }
 }

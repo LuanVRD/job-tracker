@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const apiInterceptor: HttpInterceptorFn = (req, next) => {
-  const baseUrl = 'http://localhost:5169/api'
+  const baseUrl = 'http://localhost:5001/api'
   const token = localStorage.getItem('token');
 
   let cloneReq = req.clone({
