@@ -12,4 +12,11 @@ export interface RegisterRequest {
 
 export interface AuthResponse {
     token: string;
+    name: string;
+    email: string;
+}
+
+export interface User {
+    name: string;
+    email: string;
 }

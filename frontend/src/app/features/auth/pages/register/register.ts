@@ -53,10 +53,7 @@ export class RegisterComponent implements OnInit {
     const { passwordConfirm, ...payload } = this.registerForm.getRawValue();
 
     this.authService.register(payload).subscribe({
-      next: (response) => {
-        console.log('Cadastro efetuado com sucesso!');
-
-        localStorage.setItem('token', response.token);
+      next: () => {
         this.router.navigate(['/']);
       },
       error: (error) => {

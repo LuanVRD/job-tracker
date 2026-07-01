@@ -45,8 +45,7 @@ export class LoginComponent {
     this.loading.set(true);
 
     this.authService.login(this.loginForm.getRawValue()).subscribe({
-      next: (response) => {
-        localStorage.setItem('token', response.token);
+      next: () => {
         this.router.navigate(['/']);
       },
       error: (error) => {
