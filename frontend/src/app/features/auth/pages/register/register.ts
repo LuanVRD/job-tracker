@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthLayoutComponent } from '../../components/auth-layout/auth-layout';
 import { ErrorBoxComponent } from '@app/shared/componentes/error-box/error-box';
 import { PasswordInputComponent } from '@app/shared/componentes/password-input/password-input';
+import { passwordMatchValidator } from '@app/shared/validators/password-match.validator';
 
 @Component({
   selector: 'app-register',
@@ -23,26 +24,32 @@ import { PasswordInputComponent } from '@app/shared/componentes/password-input/p
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
 
   errorMessage = signal<string | null>(null);
 
-  registerForm: FormGroup = this.fb.group({
+  registerForm: FormGroup = this.fb.nonNullable.group({
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     passwordConfirm: ['', [Validators.required, Validators.minLength(6)]]
-  });
+  }, { validators: passwordMatchValidator });
+
+  ngOnInit() {
+    this.setupFormListeners();
+  }
 
   onSubmit() {
     if (this.registerForm.invalid) return;
 
     this.errorMessage.set(null);
 
-    this.authService.register(this.registerForm.value).subscribe({
+    const { passwordConfirm, ...payload } = this.registerForm.getRawValue();
+
+    this.authService.register(payload).subscribe({
       next: (response) => {
         console.log('Cadastro efetuado com sucesso!');
 
@@ -51,6 +58,24 @@ export class RegisterComponent {
       },
       error: (error) => {
         this.errorMessage.set(error.error?.message);
+      }
+    });
+  }
+
+  private setupFormListeners() {
+    this.registerForm.valueChanges.subscribe(() => {
+      const passwordControl = this.registerForm.get('password');
+      const confirmControl = this.registerForm.get('passwordConfirm');
+
+      if (passwordControl?.hasError('minlength') && passwordControl?.dirty) {
+        this.errorMessage.set('A senha deve ter pelo menos 6 caracteres.');
+        return;
+      }
+
+      if (this.registerForm.hasError('mismatch') && confirmControl?.dirty) {
+        this.errorMessage.set('As senhas não coincidem!');
+      } else {
+        this.errorMessage.set(null);
       }
     });
   }

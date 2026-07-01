@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { AuthResponse, LoginRequest, RegisterRequest } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -7,11 +8,11 @@ import { inject, Injectable } from '@angular/core';
 export class AuthService {
   private http = inject(HttpClient);
 
-  login(credentials: any) {
-    return this.http.post<any>('/auth/login', credentials);
+  login(credentials: LoginRequest) {
+    return this.http.post<AuthResponse>('/auth/login', credentials);
   }
 
-  register(credentials: any) {
-    return this.http.post<any>('/auth/register', credentials);
+  register(credentials: RegisterRequest) {
+    return this.http.post<AuthResponse>('/auth/register', credentials);
   }
 }

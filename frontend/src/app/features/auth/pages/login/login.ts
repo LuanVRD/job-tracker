@@ -30,9 +30,7 @@ export class LoginComponent {
 
   errorMessage = signal<string | null>(null);
 
-  viewPassword: boolean = false;
-
-  loginForm: FormGroup = this.fb.group({
+  loginForm: FormGroup = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
@@ -42,7 +40,7 @@ export class LoginComponent {
 
     this.errorMessage.set(null);
 
-    this.authService.login(this.loginForm.value).subscribe({
+    this.authService.login(this.loginForm.getRawValue()).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
         this.router.navigate(['/']);

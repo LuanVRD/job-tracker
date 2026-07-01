@@ -18,11 +18,6 @@ namespace backend.Services
 
         public AuthResponse Register(RegisterRequest registerRequest)
         {
-            if (registerRequest.Password != registerRequest.PasswordConfirm)
-            {
-                throw new Exception("A senha e a confirmação de senha não coincidem.");
-            }
-
             if (_db.Users.Any(x => x.Email.Equals(registerRequest.Email)))
             {
                 throw new Exception("Email já cadastrado");
