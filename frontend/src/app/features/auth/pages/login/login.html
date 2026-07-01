@@ -7,9 +7,8 @@
         </mat-form-field>
         <app-password-input formControlName="password" label="Senha"></app-password-input>
         <div class="d-flex justify-center">
-            <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid" class="btn-submit">
-                Entrar
-            </button>
+            <app-loading-button [loading]="loading()"
+                [disabled]="loginForm.invalid || loading()">Entrar</app-loading-button>
         </div>
     </form>
 </app-auth-layout>

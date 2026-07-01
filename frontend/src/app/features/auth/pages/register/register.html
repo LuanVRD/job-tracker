@@ -12,9 +12,8 @@
         <app-password-input formControlName="password" label="Senha"></app-password-input>
         <app-password-input formControlName="passwordConfirm" label="Confirmar senha"></app-password-input>
         <div class="d-flex justify-center">
-            <button mat-flat-button color="primary" type="submit" [disabled]="registerForm.invalid" class="btn-submit">
-                Cadastrar
-            </button>
+            <app-loading-button [loading]="loading()"
+                [disabled]="registerForm.invalid || loading()">Cadastrar</app-loading-button>
         </div>
     </form>
 </app-auth-layout>

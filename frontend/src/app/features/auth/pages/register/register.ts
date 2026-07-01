@@ -4,11 +4,11 @@ import { AuthService } from '../../services/auth';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { AuthLayoutComponent } from '../../components/auth-layout/auth-layout';
 import { ErrorBoxComponent } from '@app/shared/componentes/error-box/error-box';
 import { PasswordInputComponent } from '@app/shared/componentes/password-input/password-input';
 import { passwordMatchValidator } from '@app/shared/validators/password-match.validator';
+import { LoadingButtonComponent } from "@app/shared/componentes/loading-button/loading-button";
 
 @Component({
   selector: 'app-register',
@@ -16,10 +16,10 @@ import { passwordMatchValidator } from '@app/shared/validators/password-match.va
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
     AuthLayoutComponent,
     ErrorBoxComponent,
-    PasswordInputComponent
+    PasswordInputComponent,
+    LoadingButtonComponent
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',
@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit {
   private router = inject(Router);
 
   errorMessage = signal<string | null>(null);
+  loading = signal(false);
 
   registerForm: FormGroup = this.fb.nonNullable.group({
     name: ['', [Validators.required]],
@@ -47,6 +48,8 @@ export class RegisterComponent implements OnInit {
 
     this.errorMessage.set(null);
 
+    this.loading.set(true);
+
     const { passwordConfirm, ...payload } = this.registerForm.getRawValue();
 
     this.authService.register(payload).subscribe({
@@ -58,6 +61,7 @@ export class RegisterComponent implements OnInit {
       },
       error: (error) => {
         this.errorMessage.set(error.error?.message);
+        this.loading.set(false);
       }
     });
   }

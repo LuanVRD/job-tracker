@@ -1,0 +1,8 @@
+<button mat-flat-button color="primary" type="submit" [disabled]="disabled()" class="btn-submit">
+    @if (loading()) {
+    <mat-spinner diameter="24"></mat-spinner>
+    }
+    @else {
+    <ng-content></ng-content>
+    }
+</button>

@@ -4,10 +4,10 @@ import { AuthService } from '../../services/auth';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { AuthLayoutComponent } from "../../components/auth-layout/auth-layout";
 import { ErrorBoxComponent } from "@app/shared/componentes/error-box/error-box";
 import { PasswordInputComponent } from '@app/shared/componentes/password-input/password-input';
+import { LoadingButtonComponent } from "@app/shared/componentes/loading-button/loading-button";
 
 @Component({
   selector: 'app-login',
@@ -15,10 +15,10 @@ import { PasswordInputComponent } from '@app/shared/componentes/password-input/p
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
     AuthLayoutComponent,
     ErrorBoxComponent,
-    PasswordInputComponent
+    PasswordInputComponent,
+    LoadingButtonComponent
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
@@ -30,6 +30,8 @@ export class LoginComponent {
 
   errorMessage = signal<string | null>(null);
 
+  loading = signal(false);
+
   loginForm: FormGroup = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
@@ -40,6 +42,8 @@ export class LoginComponent {
 
     this.errorMessage.set(null);
 
+    this.loading.set(true);
+
     this.authService.login(this.loginForm.getRawValue()).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
@@ -47,6 +51,7 @@ export class LoginComponent {
       },
       error: (error) => {
         this.errorMessage.set(error.error?.message);
+        this.loading.set(false);
       }
     });
   }
