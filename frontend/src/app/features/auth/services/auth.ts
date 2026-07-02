@@ -9,18 +9,19 @@ import { tap } from 'rxjs';
 export class AuthService {
   private http = inject(HttpClient);
 
-  private readonly TOKEN_KEY = '@jobtracker/token';
+  public readonly AUTH_PATH = '/auth/';
+  public readonly TOKEN_KEY = '@jobtracker/token';
 
   currentUser = signal<User | null>(null);
 
   login(credentials: LoginRequest) {
-    return this.http.post<AuthResponse>('/auth/login', credentials).pipe(
+    return this.http.post<AuthResponse>(`${this.AUTH_PATH}login`, credentials).pipe(
       tap((response) => this.handleAuthentication(response))
     );
   }
 
   register(credentials: RegisterRequest) {
-    return this.http.post<AuthResponse>('/auth/register', credentials).pipe(
+    return this.http.post<AuthResponse>(`${this.AUTH_PATH}register`, credentials).pipe(
       tap((response) => this.handleAuthentication(response))
     );
   }
