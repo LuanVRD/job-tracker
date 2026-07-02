@@ -9,6 +9,8 @@ import { tap } from 'rxjs';
 export class AuthService {
   private http = inject(HttpClient);
 
+  private readonly TOKEN_KEY = '@jobtracker/token';
+
   currentUser = signal<User | null>(null);
 
   login(credentials: LoginRequest) {
@@ -24,16 +26,16 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem(this.TOKEN_KEY);
     this.currentUser.set(null);
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem(this.TOKEN_KEY);
   }
 
   private handleAuthentication(response: AuthResponse) {
-    localStorage.setItem('token', response.token);
+    localStorage.setItem(this.TOKEN_KEY, response.token);
     this.currentUser.set({
       name: response.name,
       email: response.email
