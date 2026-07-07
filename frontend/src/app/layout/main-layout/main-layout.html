@@ -1,9 +1,10 @@
-<mat-toolbar>
-    <span>Custom Toolbar</span>
-</mat-toolbar>
+<app-topbar></app-topbar>
 
 <mat-sidenav-container class="container">
-    <mat-sidenav mode="side" opened>Sidenav content</mat-sidenav>
+    <mat-sidenav mode="side" opened>
+        <app-sidebar></app-sidebar>
+    </mat-sidenav>
+
     <mat-sidenav-content>
         <router-outlet></router-outlet>
     </mat-sidenav-content>

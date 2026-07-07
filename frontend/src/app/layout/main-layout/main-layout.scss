@@ -1,7 +1,14 @@
-.container {
-    height: 100%;
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 
-    .mat-sidenav {
-        border-radius: 0 !important;
+    .container {
+        flex: 1;
+
+        mat-sidenav {
+            background-color: var(--mat-sys-surface-container-low);
+            border-radius: 0 !important;
+        }
     }
 }

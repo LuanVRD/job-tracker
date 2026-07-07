@@ -1,0 +1,17 @@
+mat-toolbar {
+    background-color: var(--mat-sys-primary);
+
+    position: relative;
+    z-index: 2;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #000000;
+    font-weight: bolder !important;
+}
+
+mat-icon {
+    color: #000000;
+}

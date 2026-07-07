@@ -9,7 +9,11 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                loadComponent: () => import('@app/features/home').then(m => m.HomeComponent),
+                loadComponent: () => import('@app/features/home/home').then(m => m.HomeComponent),
+            },
+            {
+                path: 'jobs',
+                loadComponent: () => import('@app/features/jobs/jobs').then(m => m.JobsComponent),
             },
         ]
     },
