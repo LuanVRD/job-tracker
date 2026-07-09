@@ -36,6 +36,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<UserService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
